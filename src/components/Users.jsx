@@ -7,7 +7,7 @@ export const Users = () => {
   const [posts, setpost] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setpostsPerPage] = useState(10)
+  const [postsPerPage] = useState(10)
 
   useEffect(() => {
     const fetchpost = async (e) =>{
@@ -23,12 +23,14 @@ export const Users = () => {
   const indexOfLastPage = currentPage * postsPerPage
   const indexOfFirstPage = indexOfLastPage - postsPerPage
   const currentPosts = posts.slice(indexOfFirstPage, indexOfLastPage)
+
+  const paginate = pageNumber => setCurrentPage(pageNumber)
   
   return (
     <div className='container' >
       <h1 className='text-primary mt-4' >List of Posts</h1>
         <Post posts={currentPosts} loading={loading}/>
-        <Pagination postsperpage={postsPerPage} totalposts={posts.length}/>
+        <Pagination postsperpage={postsPerPage} totalposts={posts.length} paginate={paginate} />
     </div>
   )
 }
